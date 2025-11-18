@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Morgan — Portfolio</title>
+  <style>
+    :root {
+      --bg: #f7f7f7;
+      --text: #333;
+      --card-bg: #fff;
+      --accent: #0077ff;
+    }
+    body.dark-mode {
+      --bg: #0d1117;
+      --text: #e6edf3;
+      --card-bg: #161b22;
+      --accent: #58a6ff;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 40px;
+      font-weight: 700;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    .dark-toggle {
+      display: block;
+      margin: 0 auto 20px;
+      padding: 10px 20px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .dark-toggle:hover {
+      transform: scale(1.05);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background:
+</head>
+<body>
+  <div class="container">
+    <h1>Morgan — Portfolio</h1>
+
+    <div class="grid">
+      <div class="card">
+        <h2>About Me</h2>
+        <img src="Screenshot 2025-11-16 at 9.51.07 PM.png" alt="Profile Photo" style="width:150px; height:150px; border-radius:50%; object-fit:cover; margin-bottom:15px;">
+        <p>Aspiring Software Engineer with experience in Product Operations, banking technology, and risk management. Passionate about building scalable systems and solving complex problems.</p>
+      </div>
+
+      <div class="card">
+        <h2>Skills</h2>
+        <ul>
+          <li>C#, .NET, REST APIs</li>
+          <li>SQL Server, Azure DevOps</li>
+          <li>Risk Management & Monitoring (Splunk)</li>
+          <li>Swift (beginner), JavaScript</li>
+        </ul>
+      </div>
+
+      <div class="card" style="grid-column: span 2;">
+        <h2>Projects</h2>
+        <div class="project-box">
+          <h3>Fintech Spare-Change App</h3>
+          <p>A startup concept that rounds up spare change and invests into stocks.</p>
+        </div>
+        <div class="project-box">
+          <h3>IAM Role Access Tracker</h3>
+          <p>Tool concept for analyzing RBAC mapping and privilege requests.</p>
+        </div>
+      </div>
+
+      <div class="card" style="grid-column: span 2; text-align: center;">
+        <h2>Resume</h2>
+        <a class="resume-btn" href="#" download>Download PDF</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
