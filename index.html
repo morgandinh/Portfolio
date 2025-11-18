@@ -5,18 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Morgan — Portfolio</title>
 
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
   <style>
     :root {
       --bg: #f7f7f7;
       --text: #333;
       --card-bg: #fff;
       --accent: #0077ff;
+      --error: #d13a3a;
+      --success: #28a745;
     }
     body.dark-mode {
       --bg: #0d1117;
       --text: #e6edf3;
       --card-bg: #161b22;
       --accent: #58a6ff;
+      --error: #ff6b6b;
+      --success: #4bd87d;
     }
 
     body {
@@ -93,6 +100,7 @@
       background: rgba(0,0,0,0.05);
       border-radius: 10px;
     }
+
     body.dark-mode .project-box {
       background: rgba(255,255,255,0.05);
     }
@@ -113,6 +121,79 @@
       transform: scale(1.05);
     }
 
+    /* CONTACT FORM */
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .input-icon {
+      position: relative;
+    }
+
+    .input-icon i {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0.6;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px 15px;
+      padding-right: 40px;
+      border-radius: 10px;
+      border: 1px solid #aaa;
+      background: var(--card-bg);
+      color: var(--text);
+      font-size: 15px;
+      transition: border 0.2s ease;
+    }
+
+    input:focus, textarea:focus {
+      border-color: var(--accent);
+      outline: none;
+    }
+
+    .error-msg {
+      color: var(--error);
+      font-size: 14px;
+      margin-top: 5px;
+      display: none;
+    }
+
+    .success-popup {
+      display: none;
+      padding: 15px;
+      background: var(--success);
+      color: white;
+      text-align: center;
+      border-radius: 10px;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 12px 20px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 17px;
+      transition: transform 0.2s ease;
+    }
+
+    .submit-btn:hover {
+      transform: scale(1.03);
+    }
   </style>
 </head>
 
@@ -126,7 +207,7 @@
 
     <div class="grid">
 
-      <!-- ABOUT ME -->
+      <!-- ABOUT -->
       <div class="card">
         <h2>About Me</h2>
         <img src="Screenshot 2025-11-16 at 9.51.07 PM.png" 
@@ -172,14 +253,114 @@
         </a>
       </div>
 
+      <!-- CONTACT FORM -->
+      <div class="card" style="grid-column: span 2;">
+        <h2><i class="fa-solid fa-envelope"></i> Contact Me</h2>
+
+        <form id="contactForm" action="https://formspree.io/f/yourFormID" method="POST">
+
+          <div class="form-group">
+            <label>Name</label>
+            <div class="input-icon">
+              <input type="text" name="name" id="name" required>
+              <i class="fa-solid fa-user"></i>
+            </div>
+            <div class="error-msg" id="nameError">Please enter your name.</div>
+          </div>
+
+          <div class="form-group">
+            <label>Email</label>
+            <div class="input-icon">
+              <input type="email" name="email" id="email" required>
+              <i class="fa-solid fa-envelope-circle-check"></i>
+            </div>
+            <div class="error-msg" id="emailError">Enter a valid email address.</div>
+          </div>
+
+          <div class="form-group">
+            <label>Message</label>
+            <textarea name="message" id="message" rows="5" required></textarea>
+            <div class="error-msg" id="messageError">Message cannot be empty.</div>
+          </div>
+
+          <button type="submit" class="submit-btn">Send Message</button>
+        </form>
+
+        <div class="success-popup" id="successPopup">
+          <i class="fa-solid fa-circle-check"></i> Message sent successfully!
+        </div>
+
+      </div>
+
     </div>
   </div>
 
-  <!-- DARK MODE SCRIPT -->
+  <!-- SCRIPTS -->
   <script>
     function toggleDark() {
       document.body.classList.toggle("dark-mode");
     }
+
+    // FORM VALIDATION
+    const form = document.getElementById("contactForm");
+    const successPopup = document.getElementById("successPopup");
+
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      let valid = true;
+
+      // Inputs
+      const name = document.getElementById("name");
+      const email = document.getElementById("email");
+      const message = document.getElementById("message");
+
+      // Errors
+      const nameError = document.getElementById("nameError");
+      const emailError = document.getElementById("emailError");
+      const messageError = document.getElementById("messageError");
+
+      // RESET ERRORS
+      nameError.style.display = "none";
+      emailError.style.display = "none";
+      messageError.style.display = "none";
+
+      // Validation
+      if (!name.value.trim()) {
+        nameError.style.display = "block";
+        valid = false;
+      }
+
+      if (!email.value.match(/^[^@]+@[^@]+\.[^@]+$/)) {
+        emailError.style.display = "block";
+        valid = false;
+      }
+
+      if (!message.value.trim()) {
+        messageError.style.display = "block";
+        valid = false;
+      }
+
+      if (!valid) return;
+
+      // Submit to Formspree
+      const formData = new FormData(form);
+
+      const resp = await fetch(form.action, {
+        method: "POST",
+        body: formData,
+        headers: { Accept: "application/json" }
+      });
+
+      if (resp.ok) {
+        successPopup.style.display = "block";
+        form.reset();
+
+        setTimeout(() => {
+          successPopup.style.display = "none";
+        }, 4000);
+      }
+    });
   </script>
 
 </body>
