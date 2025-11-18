@@ -21,4 +21,166 @@
 
     body {
       margin: 0;
-      font-f
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 42px;
+      font-weight: 700;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    .dark-toggle {
+      display: block;
+      margin: 0 auto 30px;
+      padding: 10px 22px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .dark-toggle:hover {
+      transform: scale(1.05);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      padding: 25px;
+      border-radius: 14px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease, background 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-size: 26px;
+    }
+
+    .project-box {
+      margin-bottom: 20px;
+      padding: 15px;
+      background: rgba(0,0,0,0.05);
+      border-radius: 10px;
+    }
+    body.dark-mode .project-box {
+      background: rgba(255,255,255,0.05);
+    }
+
+    .resume-btn {
+      padding: 12px 30px;
+      background: var(--accent);
+      color: white;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      display: inline-block;
+      margin-top: 10px;
+      transition: transform 0.2s ease;
+    }
+
+    .resume-btn:hover {
+      transform: scale(1.05);
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <h1>Morgan — Portfolio</h1>
+
+    <button class="dark-toggle" onclick="toggleDark()">Toggle Dark Mode</button>
+
+    <div class="grid">
+
+      <!-- ABOUT ME -->
+      <div class="card">
+        <h2>About Me</h2>
+        <img src="Screenshot 2025-11-16 at 9.51.07 PM.png" 
+             alt="Profile Photo"
+             style="width:150px; height:150px; border-radius:50%; object-fit:cover; margin-bottom:15px;">
+        <p>
+          Aspiring Software Engineer with experience in Product Operations, banking technology,
+          and risk management. Passionate about building scalable systems and solving complex problems.
+        </p>
+      </div>
+
+      <!-- SKILLS -->
+      <div class="card">
+        <h2>Skills</h2>
+        <ul>
+          <li>C#, .NET, REST APIs</li>
+          <li>SQL Server, Azure DevOps</li>
+          <li>Risk Management & Monitoring (Splunk)</li>
+          <li>Swift (beginner), JavaScript</li>
+        </ul>
+      </div>
+
+      <!-- PROJECTS -->
+      <div class="card" style="grid-column: span 2;">
+        <h2>Projects</h2>
+
+        <div class="project-box">
+          <h3>Fintech Spare-Change App</h3>
+          <p>A startup concept that rounds up spare change and invests into stocks.</p>
+        </div>
+
+        <div class="project-box">
+          <h3>IAM Role Access Tracker</h3>
+          <p>Tool concept for analyzing RBAC mapping and privilege requests.</p>
+        </div>
+      </div>
+
+      <!-- RESUME -->
+      <div class="card" style="text-align:center; grid-column: span 2;">
+        <h2>Resume</h2>
+        <a class="resume-btn" href="#" download>
+          Download PDF
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- DARK MODE SCRIPT -->
+  <script>
+    function toggleDark() {
+      document.body.classList.toggle("dark-mode");
+    }
+  </script>
+
+</body>
+</html>
